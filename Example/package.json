@@ -1,0 +1,11 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "assets.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Dhanaselvan <dhana3521@gmail.com>",
+  "license": "ISC"
+}

@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "jest": "^29.6.4",
+    "mysql2": "^3.6.0",
+    "pg": "^8.11.3",
+    "pg-hstore": "^2.3.4",
+    "pgtools": "^1.0.1",
+    "postgres": "^3.3.5",
+    "sequelize": "^6.32.1"
+  },
+  "name": "wd201",
+  "version": "1.0.0",
+  "main": "connectDB.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Dhanaselvan <dhana3521@gmail.com>",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "eslint": "^8.48.0",
+    "husky": "^8.0.3"
+  }
+}
