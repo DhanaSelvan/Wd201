@@ -6,7 +6,8 @@
     "pg-hstore": "^2.3.4",
     "pgtools": "^1.0.1",
     "postgres": "^3.3.5",
-    "sequelize": "^6.32.1"
+    "sequelize": "^6.32.1",
+    "supertest": "^6.3.3"
   },
   "name": "wd201",
   "version": "1.0.0",
@@ -20,6 +21,8 @@
   "description": "",
   "devDependencies": {
     "eslint": "^8.48.0",
-    "husky": "^8.0.3"
+    "express": "^4.18.2",
+    "husky": "^8.0.3",
+    "prettier": "^3.0.3"
   }
 }
