@@ -1,4 +1,6 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
+
 const db = require("../models");
 
 const getJSDate = (days) => {
