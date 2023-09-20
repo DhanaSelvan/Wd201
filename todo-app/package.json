@@ -1,6 +1,7 @@
 {
   "name": "todo-app",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "nodemon -e js,ejs",
@@ -31,6 +32,5 @@
     "jest": "^29.6.4",
     "pg": "^8.11.3",
     "supertest": "^6.3.3"
-  },
-  "description": ""
+  }
 }

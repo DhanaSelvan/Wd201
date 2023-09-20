@@ -11,8 +11,9 @@
   },
   "name": "wd201",
   "version": "1.0.0",
-  "main": "connectDB.js",
+  "main": "todo-app/index.js",
   "scripts": {
+    "start:prod": "node todo-app/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
