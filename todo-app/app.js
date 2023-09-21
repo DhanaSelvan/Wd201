@@ -4,16 +4,18 @@ const express = require("express");
 const app = express();
 const { Todo } = require("./models");
 const bodyParser = require("body-parser");
-const path = require("path");
+// const path = require("path");
 app.use(bodyParser.json());
 
+const path = require("path");
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "/public")));
 
 app.set("view engine", "ejs");
 
-app.get("/", async (request, response) => {
-  const allTodos = await Todo.getTodo();
-  if (request.accepts("html")) {
+app.get("/", async (requeset, response) => {
+  let allTodos = await Todo.getTodo();
+  if (requeset.accepts("html")) {
     response.render("index", {
       allTodos,
     });
