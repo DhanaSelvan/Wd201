@@ -4,13 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Todo Manager</title>
-    <link rel="stylesheet" href="../public/css/styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/styles.css">
   </head>
   <body>
-    <div>
+    <div class="grid grid-cols-6 my-7">
+      <div class="col-start-3 col-span-2">
         <%- include("header.ejs") %>
+        <form>
+          <div class="flex gap-2 py-4">
+            <div class="flex-auto">
+              <input type="text" placeholder="What's Next?" required class="border border-gray-300 text-gray-900 rounded w-100 p-2">
+            </div>
+            <div class="flex-auto">
+              <input type="date" class="border border-gray-300 text-gray-900 rounded w-100 p-2 leading-4">
+            </div>
+            <div class="flex-none">
+              <button type="submit" class="bg-green-600 text-white px-5 py-2 rounded font-medium">ADD</button>
+            </div>
+          </div>
+        </form>
         <%- include("todos.ejs") %>
         <%- include("footer.ejs") %>
+      </div>
     </div>
   </body>
 </html>
