@@ -4,22 +4,25 @@ const express = require("express");
 const app = express();
 const { Todo } = require("./models");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
-
+app.use(cookieParser("shh! some secret string"));
 const path = require("path");
+const csrf = require("csurf");
+app.use(csrf({ cookie: true }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, "/public")));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.set("view engine", "ejs");
 
-app.get("/", async (requeset, response) => {
+app.get("/", async (request, response) => {
   let allTodos = await Todo.getTodo();
   let overDue = await Todo.overDue();
   let dueLater = await Todo.dueLater();
   let dueToday = await Todo.dueToday();
   let completed = await Todo.completed();
-  if (requeset.accepts("html")) {
+  if (request.accepts("html")) {
     response.render("index", {
       title: "Todo application",
       allTodos,
@@ -27,6 +30,7 @@ app.get("/", async (requeset, response) => {
       dueToday,
       dueLater,
       completed,
+      csrfToken: request.csrfToken(),
     });
   } else {
     response.json({
@@ -38,7 +42,7 @@ app.get("/", async (requeset, response) => {
   }
 });
 
-app.get("/todos", async (_request, response) => {
+app.get("/todos", async (request, response) => {
   console.log("Processing list of all Todos ...");
 
   try {
