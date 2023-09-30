@@ -34,6 +34,7 @@
     "pg": "^8.11.3",
     "sequelize": "^6.33.0",
     "sequelize-cli": "^6.6.1",
-    "supertest": "^6.3.3"
+    "supertest": "^6.3.3",
+    "tiny-csrf": "^1.1.3"
   }
 }

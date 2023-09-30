@@ -9,8 +9,8 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser("shh! some secret string"));
 const path = require("path");
-const csrf = require("csurf");
-app.use(csrf({ cookie: true }));
+const csrf = require("tiny-csrf");
+app.use(csrf("this_should_be_32_character_long", ["POST", "PUT", "DELETE"]));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -78,10 +78,10 @@ app.post("/todos", async (request, response) => {
   }
 });
 
-app.put("/todos/:id/markAsCompleted", async function (request, response) {
+app.put("/todos/:id", async function (request, response) {
   const todo = await Todo.findByPk(request.params.id);
   try {
-    const updatedTodo = await todo.markAsCompleted();
+    const updatedTodo = await todo.setCompletionStatus(request.body.completed);
     return response.json(updatedTodo);
   } catch (error) {
     console.log(error);
