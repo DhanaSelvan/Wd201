@@ -4,31 +4,43 @@ const express = require("express");
 const app = express();
 const { Todo } = require("./models");
 const bodyParser = require("body-parser");
-// const path = require("path");
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
 
 const path = require("path");
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "/public")));
 
 app.set("view engine", "ejs");
 
 app.get("/", async (requeset, response) => {
   let allTodos = await Todo.getTodo();
+  let overDue = await Todo.overDue();
+  let dueLater = await Todo.dueLater();
+  let dueToday = await Todo.dueToday();
+  let completed = await Todo.completed();
   if (requeset.accepts("html")) {
     response.render("index", {
+      title: "Todo application",
       allTodos,
+      overDue,
+      dueToday,
+      dueLater,
+      completed,
     });
   } else {
     response.json({
-      allTodos,
+      overDue,
+      dueLater,
+      dueToday,
+      completed,
     });
   }
 });
 
-app.get("/todos", async function (_request, response) {
+app.get("/todos", async (_request, response) => {
   console.log("Processing list of all Todos ...");
-  // FILL IN YOUR CODE HERE
+
   try {
     let Todos = await Todo.findAll();
     return response.send(Todos);
@@ -36,9 +48,6 @@ app.get("/todos", async function (_request, response) {
     console.log(error);
     return response.status(422).json(error);
   }
-  // First, we have to query our PostgerSQL database using Sequelize to get list of all Todos.
-  // Then, we have to respond with all Todos, like:
-  // response.send(todos)
 });
 
 app.get("/todos/:id", async function (request, response) {
@@ -51,10 +60,14 @@ app.get("/todos/:id", async function (request, response) {
   }
 });
 
-app.post("/todos", async function (request, response) {
+app.post("/todos", async (request, response) => {
   try {
-    const todo = await Todo.addTodo(request.body);
-    return response.json(todo);
+    await Todo.addTodo({
+      title: request.body.title,
+      dueDate: request.body.dueDate,
+      completed: false,
+    });
+    return response.redirect("/");
   } catch (error) {
     console.log(error);
     return response.status(422).json(error);
@@ -74,12 +87,12 @@ app.put("/todos/:id/markAsCompleted", async function (request, response) {
 
 app.delete("/todos/:id", async function (request, response) {
   console.log("We have to delete a Todo with ID: ", request.params.id);
-  // FILL IN YOUR CODE HERE
-  let deletedTodo = await Todo.destroy({ where: { id: request.params.id } });
-  response.send(deletedTodo ? true : false);
-  // First, we have to query our database to delete a Todo by ID.
-  // Then, we have to respond back with true/false based on whether the Todo was deleted or not.
-  // response.send(true)
+  try {
+    await Todo.remove(request.params.id);
+    return response.json({ success: true });
+  } catch (error) {
+    return response.status(422).json(error);
+  }
 });
 
 module.exports = app;
