@@ -140,7 +140,7 @@ describe("Todo Application", function () {
     }
   });
 
-  test("Creates a  new todo", async () => {
+  test("Creates a todo and responds with json at /todos POST endpoint", async () => {
     const { text } = await agent.get("/");
     const csrfToken = extractCSRFToken(text);
 
@@ -179,7 +179,7 @@ describe("Todo Application", function () {
     expect(parsedUpdateResponse.completed).toBe(true);
   });
 
-  test("Deletes a todo with the given ID", async () => {
+  test("Deletes a todo with the given ID if it exists and sends a boolean response", async () => {
     let res = await agent.get("/");
     let csrfToken = extractCSRFToken(res.text);
 
