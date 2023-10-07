@@ -53,10 +53,10 @@
       <div class="col-start-3 col-span-2">
         <%- include("header.ejs") %>
         <form action="/todos" method="post">
-          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>" id="csrfToken">
           <div class="flex gap-2 py-4">
             <div class="flex-auto">
-              <input type="text" name="title" placeholder="What's Next?" required class="border border-gray-300 text-gray-900 rounded w-100 p-2">
+              <input type="text" name="title" placeholder="What's Next?" class="border border-gray-300 text-gray-900 rounded w-100 p-2" required>
             </div>
             <div class="flex-auto">
               <input type="date" name="dueDate" class="border border-gray-300 text-gray-900 rounded w-100 p-2 leading-4">

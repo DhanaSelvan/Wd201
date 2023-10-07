@@ -8,14 +8,14 @@ const app = require("../app");
 let server, agent;
 
 const extractCSRFToken = (html) => {
-  const $ = cheerio.load(html);
+  const $ = cheerio.load(html.text);
   return $("[name=_csrf]").val();
 };
 
 describe("Todo Application", function () {
   beforeAll(async () => {
     await db.sequelize.sync({ force: true });
-    server = app.listen(5000, () => {});
+    server = app.listen(4000, () => {});
     agent = request.agent(server);
   });
 
