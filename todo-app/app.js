@@ -1,19 +1,19 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 const express = require("express");
+const path = require("path");
 const app = express();
 const { Todo } = require("./models");
+var csrf = require("tiny-csrf");
+var cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser("shh! some secret string"));
-const path = require("path");
-const csrf = require("tiny-csrf");
+app.use(cookieParser("shh! some secert string"));
 app.use(csrf("this_should_be_32_character_long", ["POST", "PUT", "DELETE"]));
-app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, "public")));
 
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "/public")));
 app.set("view engine", "ejs");
 
 app.get("/", async (request, response) => {
