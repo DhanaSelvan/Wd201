@@ -8,7 +8,7 @@ const app = require("../app");
 let server, agent;
 
 const extractCSRFToken = (html) => {
-  const $ = cheerio.load(html.text);
+  const $ = cheerio.load(html);
   return $("[name=_csrf]").val();
 };
 
